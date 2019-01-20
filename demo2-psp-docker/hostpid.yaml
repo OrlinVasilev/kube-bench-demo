@@ -1,0 +1,10 @@
+apiVersion: v1  
+kind: Pod  
+metadata:  
+  name: hostpid 
+spec:  
+  containers:  
+  - image: orlix/docker:latest
+    imagePullPolicy: Always
+    name: container-with-hostpid
+  hostPID: true

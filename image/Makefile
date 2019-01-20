@@ -1,11 +1,9 @@
+TAG = latest
 build:
-	docker build . -t orlix/docker:latest
+	docker build . -t orlix/docker:$(TAG)
 
 push: build
-	docker push orlix/docker:latest
+	docker push orlix/docker:$(TAG
 
 run: build
-	docker run -ti --rm orlix/docker:latest
-
-push: build
-	docker push orlix/docker:latest
+	docker run -ti --rm orlix/docker:$(TAG)
