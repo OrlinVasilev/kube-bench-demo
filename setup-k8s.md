@@ -47,10 +47,17 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 
-kubectl taint nodes --all node-role.kubernetes.io/master-
+#kubectl taint nodes --all node-role.kubernetes.io/master-
+
+#edit the cidr in calico.yaml to reflect 100.100.0.0/16
+
 
 kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
 kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
+
+wget https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
+
+kubectl label node secconf-node node-role.kubernetes.io/node=''
 
 kubectl get pods --all-namespaces
 
