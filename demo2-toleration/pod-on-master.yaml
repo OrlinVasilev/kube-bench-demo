@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-on-master
+spec:
+  containers:
+  - image: orlix/docker:latest
+    imagePullPolicy: Always
+    name: container-on-master
+  nodeSelector:
+    node-role.kubernetes.io/master: ''

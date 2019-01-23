@@ -11,7 +11,11 @@ RUN yum update -y \
     && curl -L -o /tmp/kubeaudit.tgz https://github.com/Shopify/kubeaudit/releases/download/v0.4.0/kubeaudit_0.4.0_linux_amd64.tar.gz \
     && tar -xz -C /tmp -f /tmp/kubeaudit.tgz \
     && mv /tmp/kubeaudit /usr/bin \
-    && rm -rf /tmp/kubeaudit.tgz /tmp/kubeaudit
+    && rm -rf /tmp/kubeaudit.tgz /tmp/kubeaudit \
+    && curl -L -o /tmp/kubectl.tgz https://dl.k8s.io/v1.13.0/kubernetes-client-linux-amd64.tar.gz \
+    && tar -xz -C /tmp -f /tmp/kubectl.tgz \
+    && mv /tmp/kubernetes/client/bin/kubectl /usr/bin \
+    && rm -rf /tmp/kubectl.tgz /tmp/kubernetes
 
 COPY docker.sh /
 USER 1000
