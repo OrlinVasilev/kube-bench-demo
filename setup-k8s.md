@@ -36,6 +36,8 @@ kubeadm config images pull
 echo 192.168.43.100 secconf-master >> /etc/hosts
 echo 192.168.43.101 secconf-node >> /etc/hosts
 
+yum install epel-release -y
+yum install -y jq wget net-tools git
 poweroff
 
 

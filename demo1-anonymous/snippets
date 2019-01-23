@@ -1,2 +1,7 @@
-docker run --pid=host -v /etc:/etc:ro -v /var:/var:ro -t aquasec/kube-bench:latest --version 1.11 --noremediations node
+readOnlyPort: 10255
 docker run --pid=host -v /etc:/etc:ro -v /var:/var:ro -t aquasec/kube-bench:latest --version 1.11 --noremediations master
+docker run --pid=host -v /etc:/etc:ro -v /var:/var:ro -t aquasec/kube-bench:latest --version 1.11 --noremediations node
+
+sonobuoy run
+sonobuoy status
+sonobuoy log

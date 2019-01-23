@@ -1,0 +1,1 @@
+docker run --pid=host -v /etc:/etc:ro -v /var:/var:ro -t aquasec/kube-bench:latest --version 1.11 --noremediations master|grep Pod
