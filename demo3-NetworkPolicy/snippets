@@ -1,0 +1,12 @@
+kubectl apply -f docker-pod-no-master.yaml
+
+ping 192.168.43.100
+
+curl -sk https://192.168.43.100:10250/run/kube-system/tiller-deploy-745ff9f9b-ggqr6/tiller -d "cmd=cat /var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+curl -sk https://192.168.43.101:10250/run/kube-system/tiller-deploy-745ff9f9b-ggqr6/tiller -d "cmd=cat /var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+
+
+#apply network policy
+#check
+extend network policy to 192.168.43.0/24
+apply 

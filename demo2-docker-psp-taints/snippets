@@ -1,1 +1,34 @@
+kubectl apply -f docker-pod-with-socket.yaml
+kubectl apply -f docker-pod-no-socket.yaml
+
 docker run --pid=host -v /etc:/etc:ro -v /var:/var:ro -t aquasec/kube-bench:latest --version 1.11 --noremediations master|grep Pod
+
+#apply PodSecurityPolicy admission controller
+./apply-psp-kube-api.sh
+
+#kube-bench check for kube-api PSP
+docker run --pid=host -v /etc:/etc:ro -v /var:/var:ro -t aquasec/kube-bench:latest --version 1.11 master --noremediations|grep Pod
+
+#try to run new pod
+
+#apply psp-default
+kubectl apply -f psp-default.yaml
+
+#try to apply docker-pod-with-socket.yaml
+kubectl apply -f docker-pod-with-socket.yaml
+
+#apply pod without socket
+kubectl apply -f docker-pod-no-socket.yaml
+
+#apply psp-privileged.yaml
+kubectl apply -f psp-privileged.yaml
+
+
+
+#try worst-pod
+ln -s /rootfs/var/run/docker.sock /var/run/docker.sock
+
+
+#remove taints
+./remove-master-taint.sh
+
