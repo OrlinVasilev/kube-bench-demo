@@ -1,7 +1,9 @@
-kubectl apply -f docker-pod-with-socket.yaml
+docker run --pid=host -v /etc:/etc:ro -v /var:/var:ro -t aquasec/kube-bench:latest --version 1.11 --noremediations master|grep Pod
+
 kubectl apply -f docker-pod-no-socket.yaml
 
-docker run --pid=host -v /etc:/etc:ro -v /var:/var:ro -t aquasec/kube-bench:latest --version 1.11 --noremediations master|grep Pod
+kubectl apply -f docker-pod-with-socket.yaml
+
 
 #apply PodSecurityPolicy admission controller
 ./apply-psp-kube-api.sh
@@ -23,11 +25,15 @@ kubectl apply -f docker-pod-no-socket.yaml
 #apply psp-privileged.yaml
 kubectl apply -f psp-privileged.yaml
 
-
+kubectl get nodes secconf-master -o json | jq .spec.taints
 
 #try worst-pod
+
+
 ln -s /rootfs/var/run/docker.sock /var/run/docker.sock
 
+docker ps
+cat /rootfs/etc/kubernetes/admin.conf
 
 #remove taints
 ./remove-master-taint.sh
